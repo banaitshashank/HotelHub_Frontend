@@ -127,9 +127,9 @@ const Register = () => {
               <option value="" disabled>
                 Select a role
               </option>
-              <option value="CUSTOMER">Customer</option>
-              <option value="HOTELOWNER">Owner</option>
-              <option value="ADMIN">Admin</option>
+              <option value="ROLE_CUSTOMER">Customer</option>
+              <option value="ROLE_HOTELOWNER">Owner</option>
+              <option value="ROLE_ADMIN">Admin</option>
             </select>
           </div>
           <button type="submit">Register</button>
