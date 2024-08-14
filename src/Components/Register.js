@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
@@ -13,15 +14,13 @@ const Register = () => {
     phoneNumber: "",
     nationality: "",
     role: "",
-  });
-
-  // to store value in localStorage
+  }); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/users/register",
+        `${baseURL}/users/register`,
         input,
         {
           headers: {

@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
@@ -12,10 +13,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/auth/login",
+        `${baseURL}/auth/login`,
         input,
         {
           headers: {
