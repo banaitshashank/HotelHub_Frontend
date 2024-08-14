@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
@@ -12,19 +13,24 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/auth/login", input, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        `${baseURL}/auth/login`,
+        input,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.status === 202) {
-        const data = response.data.data; // Assuming responseBuilder wraps your data in a "data" key
+        alert("login successful");
+        const data = response.data; // Assuming responseBuilder wraps your data in a "data" key
         // Save JWT token to local storage
-        localStorage.setItem("jwt", data.jwtToken);
-        localStorage.setItem("user", JSON.stringify(data.userDTO));
+        localStorage.setItem("jwt", data.otherParams.jwtToken);
+        localStorage.setItem("user", JSON.stringify(data.data));
         navigate("/");
       } else {
         // Handle errors

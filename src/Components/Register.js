@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
+  const baseURL = process.env.REACT_APP_API_BASE_URL;
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
@@ -13,21 +14,24 @@ const Register = () => {
     phoneNumber: "",
     nationality: "",
     role: "",
-  });
-
-  // to store value in localStorage
+  }); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/users/register", input, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        `${baseURL}/users/register`,
+        input,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 201) {
         // Handle successful registration
+        alert("Registration successful");
         navigate("/login");
       } else {
         // Handle errors
@@ -127,9 +131,9 @@ const Register = () => {
               <option value="" disabled>
                 Select a role
               </option>
-              <option value="CUSTOMER">Customer</option>
-              <option value="HOTELOWNER">Owner</option>
-              <option value="ADMIN">Admin</option>
+              <option value="ROLE_CUSTOMER">Customer</option>
+              <option value="ROLE_HOTELOWNER">Owner</option>
+              <option value="ROLE_ADMIN">Admin</option>
             </select>
           </div>
           <button type="submit">Register</button>
